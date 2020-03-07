@@ -34,6 +34,7 @@ function saveTransaction(rec) {
     // saving the pending objectStore record
     store.add(rec)
 };
+  
 
 // function to read transaction recs from db
 function ReadDB () {

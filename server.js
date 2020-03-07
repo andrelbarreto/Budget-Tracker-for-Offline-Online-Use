@@ -2,9 +2,10 @@ const express = require("express");
 const logger = require("morgan");
 const mongoose = require("mongoose");
 const compression = require("compression");
-const path = require("path");
+
 const mongojs = require("mongojs");
-require("dotenv").config()
+require("dotenv/config");
+const cors = require("cors");
 
 const PORT =  process.env.PORT || 4000;
 
@@ -18,27 +19,20 @@ app.use(express.json());
 
 app.use(express.static("public"));
 
-const MONGODB_URI = `mongodb://${process.env.DB_USER}:${process.env.DB_PASSWORD}@ds211259.mlab.com:11259/heroku_3zbwvbpc`
-console.log(MONGODB_URI)
 
-mongoose.connect("mongodb://localhost/budget", {
-  useNewUrlParser: true,
+mongoose.connect(process.env.MONGODB_URL || "mongodb://localhost/budget", {
+  useNewUrlParser: true, 
+  useUnifiedTopology: true,
   useFindAndModify: false
 });
 
-// mongoose.connect(process.env.MONGODB_URI, {
-//   useNewUrlParser: true,
-//   useFindAndModify: false,
-//   useCreateIndex: true,
-//   useUnifiedTopology: true
-// });
 
 
 // routes
 app.use(require("./routes/api.js"));
 
 //Set up Mongo db
-const databaseUrl = process.env.MONGODB_URI || "budget";
+const databaseUrl = process.env.MONGODB_URL || "budget";
 const collections = ["budget"];
 
 //Set database const ref
@@ -48,6 +42,21 @@ const BudgetDB = mongojs(databaseUrl, collections);
   console.log("Database Error:", error);
  })
 
+
+// cors origin URL - Allow inbound traffic from origin
+
+corsOptions = {
+  origin: "Your FrontEnd Website URL",
+  optionsSuccessStatus: 200 // some legacy browsers (IE11, various SmartTVs) choke on 204
+};
+app.use(cors(corsOptions));
+
+//listening on Port $PORT
 app.listen(PORT, () => {
   console.log(`App running on port ${PORT}!`);
 });
+
+
+
+
+
