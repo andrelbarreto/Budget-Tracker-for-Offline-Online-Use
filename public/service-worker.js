@@ -9,7 +9,7 @@ const FILES_TO_CACHE = [
     './manifest.webmanifest',
     './icons/192x192.png',
     './icons/icon-512x512.png',
-    './db.js',
+    './Budgetdb.js',
     'https://cdn.jsdelivr.net/npm/chart.js@2.8.0',
     'https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css',
     'https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/fonts/fontawesome-webfont.woff?v=4.7.0',
@@ -90,14 +90,6 @@ if (event.request.url.includes("/api")) {
     );
     return;
   }
-
- // use cache first for all other requests for performance
-//  event.respondWith(
-//     caches.match(event.request).then(cachedResponse => {
-//       if (cachedResponse) {
-//         return cachedResponse;
-//       }
-
   // In case fetch does not contain /api
    // use cache first for all other requests for performance
   event.respondWith(
@@ -111,3 +103,4 @@ if (event.request.url.includes("/api")) {
                 })
         })
 )
+      })

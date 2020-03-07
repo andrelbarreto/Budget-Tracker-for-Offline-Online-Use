@@ -1,6 +1,5 @@
-{
-    "name": "PWA Budget Tracker for offline/Online Use ",
-    "short_name": "PWA Budget Tracker App",
+{ "name": "PWA Budget Tracker for offline/Online Use",
+  "short_name": "PWA Budget Tracker App",
     "description": "A Progressive Web App for Budget Tracking with offline use capabilities",
     "icons": [
         {
